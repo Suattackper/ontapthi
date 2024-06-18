@@ -1,0 +1,284 @@
+==========ADAPTER
+package com.nguyentrananhtan.test.adapter;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.nguyentrananhtan.test.MainActivity;
+import com.nguyentrananhtan.test.model.DonThue;
+import com.nguyentrananhtan.test.R;
+
+import java.util.List;
+
+public class donthueAdapter extends BaseAdapter {
+    MainActivity context;
+    int item_layout;
+    List<DonThue> donThues;
+
+    //constructor
+
+
+    public donthueAdapter(MainActivity context, int item_layout, List<DonThue> donThues) {
+        this.context = context;
+        this.item_layout = item_layout;
+        this.donThues = donThues;
+    }
+
+    //done
+    @Override
+    public int getCount() {
+        return donThues.size();
+    }
+
+    //done
+    @Override
+    public Object getItem(int position) {
+        return donThues.get(position);
+    }
+    //done
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+    //done
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHodel hodel;
+        if (convertView == null) {
+            hodel = new ViewHodel();
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(item_layout, null);
+
+            //linking view
+            hodel.tvMaDon = convertView.findViewById(R.id.tvMaDon);
+            hodel.tvHangXe = convertView.findViewById(R.id.tvHangXe);
+            hodel.tvGiaThue = convertView.findViewById(R.id.tvGiaThue);
+            hodel.tvDiaDiem = convertView.findViewById(R.id.tvDiaDiem);
+            hodel.tvLoaiXe = convertView.findViewById(R.id.tvLoaiXe);
+            hodel.imvEdit = convertView.findViewById(R.id.imvEdit);
+            hodel.imvDelete = convertView.findViewById(R.id.imvDelete);
+
+            convertView.setTag(hodel);
+
+
+        } else {
+            hodel = (ViewHodel) convertView.getTag();
+        }
+
+        // binding data
+        DonThue donThue = donThues.get(position);
+//        hodel.txtInfo.setText(food.getFoodName() + " - " + String.format("%.0fvnđ", food.getFoodPrice()));
+        hodel.tvMaDon.setText("Mã đơn: " + String.valueOf(donThue.getMaDon()));
+        hodel.tvHangXe.setText("Hãng xe: " + donThue.getHangXe());
+        hodel.tvGiaThue.setText("Giá thuê: " + String.valueOf(donThue.getGiaThue()));
+        hodel.tvDiaDiem.setText("Dịa điểm: " + donThue.getDiaDiem());
+        hodel.tvLoaiXe.setText("Loại xe: " + donThue.getLoaiXe());
+
+        hodel.imvEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.openEditDialog(donThue);
+            }
+        });
+        hodel.imvDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.openDeleteConfirmDialog(donThue);
+            }
+        });
+
+        return convertView;
+    }
+
+    //done
+    public static class ViewHodel {
+        TextView tvMaDon;
+        TextView tvHangXe;
+        TextView tvGiaThue;
+        TextView tvDiaDiem;
+        TextView tvLoaiXe;
+        ImageView imvEdit, imvDelete;
+    }
+}
+
+
+
+==================ALERT DIALOG
+AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Xác nhận xóa?");
+        builder.setIcon(android.R.drawable.ic_delete);
+        builder.setMessage("Bạn có chắc muốn xóa đơn thuê: " + donThue.getMaDon() + " ?");
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                db.execSql("DELETE FROM " + Database.TBL_NAME + " WHERE " + Database.COL_MADON + " = " + donThue.getMaDon());
+                loadData();
+                dialog.dismiss();
+            }
+        });
+
+        builder.setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        Dialog dialog = builder.create();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.show();
+
+
+========================DIALOG
+Dialog a = new Dialog(MainActivity2.this);
+                a.setContentView(R.layout.custom_dialog);
+                a.setCancelable(false);
+                a.show();
+
+                Button btnSave = a.findViewById(R.id.btnsave);
+                Button btnBack = a.findViewById(R.id.btnback);
+                ImageButton btnTurnBack = a.findViewById(R.id.txtTurnBack);
+                EditText namesv = a.findViewById(R.id.name);
+                EditText idsv = a.findViewById(R.id.id);
+                EditText lopsv = a.findViewById(R.id.lop);
+
+                btnSave.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Insert(idsv.getText().toString(),namesv.getText().toString(),lopsv.getText().toString());
+                    }
+                });
+                btnBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        a.dismiss();
+                    }
+                });
+                btnTurnBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        a.dismiss();
+                    }
+                });
+
+
+=================================HANDLER
+handler = new Handler(new Handler.Callback() {
+            @Override
+            public boolean handleMessage(@NonNull Message msg) {
+//                switch (msg.what) {
+//                    case DRAWBUTTON:
+//                        drawButtons(Integer.parseInt(msg.obj.toString()));
+//                        break;
+//                }
+                if(msg.what == 1) drawButtons(Integer.parseInt(msg.obj.toString()));
+                return true;
+            }
+        });
+
+        binding.btnDraw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int numRows = Integer.parseInt(binding.editText.getText().toString());
+                Message msg = new Message();
+                msg.what = DRAWBUTTON;
+                msg.obj = numRows;
+                handler.sendMessage(msg);
+            }
+        });
+
+++++++++++event
+private void drawButtons(int numRows) {
+        binding.container.removeAllViews();
+
+        for (int i = 0; i < numRows; i++) {
+            LinearLayout rowLayout = createNewLinearLayout();
+
+            int numButtons = 2;
+            float button1Ratio;
+            float button2Ratio;
+            if (i % 2 == 0 ) {
+                button1Ratio = 2.0f;
+                button2Ratio = 1.0f;
+            } else {
+                button1Ratio = 1.0f;
+                button2Ratio = 2.0f;
+            }
+
+            Button button1 = new Button(MainActivity.this);
+            int randomNumber1 = new Random().nextInt(10);
+            button1.setText(String.valueOf(randomNumber1));
+            LinearLayout.LayoutParams layoutParams1 = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
+            layoutParams1.weight = button1Ratio;
+            layoutParams1.setMargins(15,15,15,15);
+            button1.setLayoutParams(layoutParams1);
+            if (randomNumber1 % 2 == 0) {
+                button1.setBackgroundColor(Color.GREEN);
+            } else {
+                button1.setBackgroundColor(Color.GRAY);
+            }
+            rowLayout.addView(button1);
+
+            Button button2 = new Button(MainActivity.this);
+            int randomNumber2 = new Random().nextInt(10);
+            button2.setText(String.valueOf(randomNumber2));
+            LinearLayout.LayoutParams layoutParams2 = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
+            layoutParams2.weight = button2Ratio;
+            layoutParams2.setMargins(15,15,15,15);
+            button2.setLayoutParams(layoutParams2);
+            if (randomNumber2 % 2 == 0) {
+                button2.setBackgroundColor(Color.GREEN);
+            } else {
+                button2.setBackgroundColor(Color.GRAY);
+            }
+            rowLayout.addView(button2);
+
+            binding.container.addView(rowLayout);
+        }
+    }
+
+
++++++++++++SETLAYOUT
+    private LinearLayout createNewLinearLayout() {
+        LinearLayout linearLayout = new LinearLayout(MainActivity.this);
+        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        linearLayout.setLayoutParams(layoutParams);
+        return linearLayout;
+    }
+
+
+
+
+
+
+
+
+
+
+
+===================DELETE AND UPDATE
+ db.execSql("DELETE FROM " + Database.TBL_NAME + " WHERE " + Database.COL_MADON + " = " + donThue.getMaDon());
+                loadData();
+
+
+
+
+db.execSql("UPDATE " + Database.TBL_NAME + " SET " + Database.COL_HANGXE + "='" + hangxe + "'," + Database.COL_GIATHUE + "=" + giathue + "," + Database.COL_HINHANH + "='" + hinhanh + "'," + Database.COL_DIADIEM + "='" + diadiem + "'," + Database.COL_LOAIXE + "='" + loaixe + "'" + " WHERE " + Database.COL_MADON + "=" + donThue.getMaDon());
+
+
+
+
+
+
+
+
