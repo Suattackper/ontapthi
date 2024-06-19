@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:background="#7B1FA2"
+        android:layout_height="200px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="200px"
+            android:layout_marginLeft="100dp"
+            android:gravity="center"
+            android:text="Thông tin sinh viên"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_marginLeft="70dp"
+            android:layout_gravity="center"
+            android:id="@+id/txtTurnBack"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_launcher_background"
+            android:backgroundTint="#7B1FA2"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="150px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="#00796B"
+            android:textSize="15dp"
+            android:gravity="center"
+            android:text="Ho ten sinh vien: "/>
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="150px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="#00796B"
+            android:textSize="15dp"
+            android:gravity="center"
+            android:text="Lop: "/>
+
+        <EditText
+            android:layout_marginLeft="80dp"
+            android:layout_width="300dp"
+            android:id="@+id/lop"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="150px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="#00796B"
+            android:textSize="15dp"
+            android:gravity="center"
+            android:text="ma sinh vien: "/>
+
+        <EditText
+            android:layout_marginLeft="25dp"
+            android:id="@+id/id"
+            android:layout_width="300dp"
+            android:inputType="number"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="120px"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="luu lai "
+            android:id="@+id/btnsave"
+            android:textColor="@color/white"
+            android:textSize="15dp" />
+
+        <Button
+            android:layout_width="100dp"
+            android:id="@+id/btnback"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="25dp"
+            android:text="tro ve" />
+
+    </LinearLayout>
+
+</LinearLayout>

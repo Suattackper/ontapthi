@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:text="Chỉnh sửa đơn thuê"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/editHangXe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập hãng xe"
+        android:textSize="25sp"
+        android:layout_marginTop="12dp"/>
+
+    <EditText
+        android:id="@+id/editGiaThue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập giá thuê"
+        android:inputType="numberDecimal"
+        android:textSize="25sp"
+        android:layout_marginTop="15dp"/>
+
+    <EditText
+        android:id="@+id/editDiaDiem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập địa điểm"
+        android:textSize="25sp"
+        android:layout_marginTop="12dp"/>
+
+    <EditText
+        android:id="@+id/editLoaiXe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập loại xe"
+        android:textSize="25sp"
+        android:inputType="number"
+        android:layout_marginTop="15dp"/>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#2196F3"
+            android:text="Save"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:backgroundTint="#FF5722"
+            android:text="Cancel"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>

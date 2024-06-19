@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">BroadcaseRecieverSimple01</string>
+    <string name="state_wifi_desc">Connected with wifi</string>
+</resources>
